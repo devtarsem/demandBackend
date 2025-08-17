@@ -32,3 +32,17 @@ exports.allTickets = async(req, res, next)=>{
         }
     })
 }
+
+exports.replyTicket = async(req, res, next)=>{
+    const {reply, tk_id, token, recipent} = req.body;
+    const ticket = await Ticket.findById(tk_id);
+
+    ticket.replies.push({
+        reply,
+        recipent
+    })
+
+    await ticket.save();
+
+    next()
+}

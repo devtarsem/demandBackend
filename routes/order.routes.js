@@ -4,7 +4,8 @@ const order = require('./../controller/order.controller')
 
 router.route('/place').post(order.Placing_order)
 router.route('/track-orders').post(order.Track_orders)
-
-
+router.route('/cancel').post(order.cancel_order, order.Track_orders)
+router.route('/online').post(order.paymentViaOnline)
+router.route('/verify').post(order.razorpaySignatureVerification)
 
 module.exports = router

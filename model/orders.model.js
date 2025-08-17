@@ -20,13 +20,14 @@ const OrderSchema = new mongoose.Schema({
     }]
     ,
     user_id : {
-        type : mongoose.Schema.ObjectId
+        type : mongoose.Schema.ObjectId,
+        ref : 'User'
     }
     ,
     delivery_status : {
         type : String,
-        enum : ["pending", "Delivered"],
-        default : "pending"
+        enum : ["Not delivered", "Delivered", "Out of delivery"],
+        default : "Not delivered"
     }
     ,
     transit_status : {
@@ -40,6 +41,30 @@ const OrderSchema = new mongoose.Schema({
         type : String,
         enum : ["pending", "success"],
         default : "success"
+    }
+    ,
+    cancel_status : {
+        type : String,
+        enum : ["persist", "cancelled"],
+        default : "persist"
+    }
+    ,
+    send_to_vendor : {
+        type : String,
+        enum : ["sended", "not send"],
+        default : "not send"
+    }
+    ,
+    return_status : {
+        type : String,
+        enum : ["no return", "return"],
+        default : "no return"
+    }
+    ,
+    refund_status : {
+        type : String,
+        enum : ["accepted", "refund"],
+        default : "accepted"
     }
     ,
     gross_bill : {
@@ -62,6 +87,18 @@ const OrderSchema = new mongoose.Schema({
     created_at : {
         type : String,
 
+    }
+    ,
+    razorpay_order_id : {
+        type : String
+    }
+    ,
+    razorpay_payment_id : {
+        type : String
+    }
+    ,
+    razorpay_signature : {
+        type : String
     }
 })
 

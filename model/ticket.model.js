@@ -29,6 +29,17 @@ const ticketSchema = new mongoose.Schema({
             type : String
         }
     }]
+    ,
+
+    replies : [{
+        recipent : {
+            type : String
+        }
+        ,
+        reply : {
+            type : String
+        }
+    }]
 })
 
 

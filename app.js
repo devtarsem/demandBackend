@@ -13,4 +13,14 @@ app.use("/api/v1/order/", OrderRouter)
 const TicketRouter = require('./routes/ticket.routes')
 app.use("/api/v1/ticket/", TicketRouter)
 
+
+/////////////////////////////////b2b////////////////////////////////
+const InventoryRouter = require('./routes/b2b/inventory.routes')
+app.use("/api/v1/b2b/", InventoryRouter)
+const VendorsRouter = require('./routes/b2b/vendor.routes')
+app.use("/api/v1/b2b_vendor/", VendorsRouter)
+const OrdersRouter = require('./routes/b2b/orders.routes')
+app.use("/api/v1/b2b_order/", OrdersRouter)
+const PORouter = require('./routes/b2b/po.routes')
+app.use("/api/v1/b2b_po/", PORouter)
 module.exports = app;

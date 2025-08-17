@@ -46,3 +46,13 @@ exports.fetchProducts = async(req, res)=>{
         }
     })
 }
+
+exports.fetchProductstoAPp = async(req, res)=>{
+    let products = await Product.find()
+    res.status(200).json({
+        status : 'success',
+        data : {
+            products : products
+        }
+    })
+}
