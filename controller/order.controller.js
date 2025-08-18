@@ -47,13 +47,15 @@ exports.cancel_order = async(req, res, next)=>{
     const order = await Order.findById(order_id);
     order.cancel_status = "cancelled"
 
-    await order.save();
+    await order.save(); 
     next()
 }
 
+
+
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_ID,
-  key_secret: process.env.RAZORPAY_SECRET,
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_SECRET
 });
 
 exports.paymentViaOnline = async(req, res, next)=>{

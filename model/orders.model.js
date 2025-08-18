@@ -17,6 +17,11 @@ const OrderSchema = new mongoose.Schema({
         size : {
             type : String
         }
+        ,
+        rating : {
+            type : Boolean,
+            default : false  
+        }
     }]
     ,
     user_id : {
