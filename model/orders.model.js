@@ -6,6 +6,22 @@ const OrderSchema = new mongoose.Schema({
             type : String
         }
         ,
+        name : {
+            type : String
+        }
+        ,
+        brand : {
+            type : String
+        }
+        ,
+        price : {
+            type : Number
+        }
+        ,
+        image : {
+            type : Array
+        }
+        ,
         color : {
             type : String
         }
