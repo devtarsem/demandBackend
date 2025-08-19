@@ -115,7 +115,8 @@ const OrderSchema = new mongoose.Schema({
     }
     ,
     razorpay_payment_id : {
-        type : String
+        type : String,
+        default : ''
     }
     ,
     razorpay_signature : {
