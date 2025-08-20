@@ -38,6 +38,12 @@ const OrderSchema = new mongoose.Schema({
             type : Boolean,
             default : false  
         }
+        ,
+        refund : {
+            type : String,
+            enum : ["Refunded", "Pending", "Not applicable"],
+            default : "Not applicable"
+        }
     }]
     ,
     user_id : {
@@ -66,7 +72,7 @@ const OrderSchema = new mongoose.Schema({
     ,
     cancel_status : {
         type : String,
-        enum : ["persist", "cancelled"],
+        enum : ["persist", "cancelled", "partially cancelled"],
         default : "persist"
     }
     ,

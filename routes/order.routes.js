@@ -7,5 +7,6 @@ router.route('/track-orders').post(order.Track_orders)
 router.route('/cancel').post(order.cancel_order, order.Track_orders)
 router.route('/online').post(order.paymentViaOnline)
 router.route('/verify').post(order.razorpaySignatureVerification)
+router.route('/cancel-sku').post(order.cancelSKU, order.Track_orders)
 
 module.exports = router

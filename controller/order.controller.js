@@ -2,7 +2,8 @@ const Order = require("./../model/orders.model")
 const jwt  = require('jsonwebtoken')
 const {promisify} = require("util")
 const Razorpay = require("razorpay");
-const crypto = require("crypto")
+const crypto = require("crypto");
+const { stringify } = require("querystring");
 function decodeJWT(token){
     return promisify(jwt.verify)(token, process.env.SECRET)
 }
@@ -109,4 +110,35 @@ exports.razorpaySignatureVerification = async(req, res, next)=>{
             }
         })
     }
+}
+
+exports.cancelSKU = async(req, res, next)=>{
+    const {order_id, sku_id, token} = req.body
+
+    const order = await Order.findById(order_id);
+
+    order.order_items.forEach(el=>{
+        if(JSON.stringify(el._id) == JSON.stringify(sku_id)){
+            console.log("passed")
+            el.return = true
+        }
+    })
+
+    let orderItems = order.order_items.length
+    let countCheck = 0;
+    order.order_items.forEach(el=>{
+        if(el.return){
+            countCheck++;
+        }
+    })
+
+    if(orderItems==countCheck){
+        order.cancel_status = 'cancelled'
+    }else{
+        order.cancel_status = 'partially cancelled'
+    }
+
+    await order.save();
+    next()
+
 }
