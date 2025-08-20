@@ -121,6 +121,7 @@ exports.cancelSKU = async(req, res, next)=>{
         if(JSON.stringify(el._id) == JSON.stringify(sku_id)){
             console.log("passed")
             el.return = true
+            el.refund = 'Pending'
         }
     })
 
@@ -140,5 +141,26 @@ exports.cancelSKU = async(req, res, next)=>{
 
     await order.save();
     next()
+
+}
+
+exports.cancelSKUSending = async(req, res, next)=>{
+    const {token} = req.body;
+    const decode = await decodeJWT(token);
+    const orders = await Order.find({user_id : decode.id})
+    const order_sku = []
+    orders.forEach(el=>{
+        el.order_items.forEach(item=>{
+            if(item.return){
+                order_sku.push(item)
+            }
+        })
+    })
+    res.status(200).json({
+        status : "success",
+        data : {
+            cancel_sku : order_sku
+        }
+    })
 
 }
