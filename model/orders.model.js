@@ -34,7 +34,7 @@ const OrderSchema = new mongoose.Schema({
             type : String
         }
         ,
-        rating : {
+        return : {
             type : Boolean,
             default : false  
         }
