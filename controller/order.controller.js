@@ -4,6 +4,7 @@ const {promisify} = require("util")
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const { stringify } = require("querystring");
+const Prods = require("./../model/products.model")
 function decodeJWT(token){
     return promisify(jwt.verify)(token, process.env.SECRET)
 }
@@ -13,6 +14,17 @@ exports.Placing_order = async(req, res, next)=>{
     const decode = await decodeJWT(user_id);
     
     const creatingOrder = await Order.create({order_items: products, user_id: decode.id, gross_bill : bill, tax : tax, total_bill : (Number(bill) + Number(tax)).toFixed(2), created_at : new Date().toLocaleString()})
+
+    products.forEach(async el=>{
+        console.log("asd")
+        const prod = await Prods.findById(el.id);
+        prod.stock[el.size] -= el.count;
+        prod.save()
+    })
+
+    
+
+
 
     res.status(200).json({
         status : "success",
@@ -95,7 +107,12 @@ exports.razorpaySignatureVerification = async(req, res, next)=>{
         const decode = await decodeJWT(user_id);
     
         const creatingOrder = await Order.create({order_items: products, user_id: decode.id, gross_bill : bill, tax : tax, total_bill : (Number(bill) + Number(tax)).toFixed(2), created_at : new Date().toLocaleString() , razorpay_order_id, razorpay_payment_id, razorpay_signature})
-
+        products.forEach(async el=>{
+            console.log("asd")
+            const prod = await Prods.findById(el.id);
+            prod.stock[el.size] -= el.count;
+            prod.save()
+        })
         res.status(200).json({
             status : "success",
             data : {

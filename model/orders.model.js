@@ -44,6 +44,18 @@ const OrderSchema = new mongoose.Schema({
             enum : ["Refunded", "Pending", "Not applicable"],
             default : "Not applicable"
         }
+        ,
+        refund_id : {
+            type : String
+        }
+        ,
+        razorpay_refund_status : {
+            type : String
+        }
+        ,
+        refund_initiated_at : {
+            type : String
+        }
     }]
     ,
     user_id : {

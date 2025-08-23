@@ -41,9 +41,35 @@ const productScheam = new mongoose.Schema({
         type : Number
     }
     ,
-    stock : {
-        type : Number
-    }
+    stock : 
+        {
+            M : {
+                type : Number,
+                default : 10,
+            }
+            ,
+            L : {
+                type : Number,
+                default : 10,
+            }
+            ,
+            S : {
+                type : Number,
+                default : 10,
+            }
+            ,
+            XL : {
+                type : Number,
+                default : 10,
+            }
+            ,
+            XXL : {
+                type : Number,
+                default : 10,
+            }
+        }
+    
+    
     ,
     Images : {
         type : Array
